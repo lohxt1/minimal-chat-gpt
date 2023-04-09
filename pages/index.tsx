@@ -10,7 +10,7 @@ const Home: NextPage = () => {
   return (
     <div
       className={cn(
-        "flex h-[calc(100%_-_3.5rem)] w-screen items-center justify-center align-middle",
+        "relative flex h-[calc(100%_-_3.5rem)] w-screen items-center justify-center align-middle",
       )}
     >
       {!apikey || editApikey ? (

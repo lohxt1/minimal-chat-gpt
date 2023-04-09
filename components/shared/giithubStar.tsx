@@ -4,7 +4,7 @@ const GithubStar = (props) => {
   const { star = false } = props;
   return (
     <a
-      href="https://github.com/lohxt1/portraits-layout"
+      href="https://github.com/lohxt1/minimal-chat-gpt"
       target="_blank"
       className={cn(
         " flex cursor-pointer flex-row items-center justify-center rounded-md px-1 py-1",

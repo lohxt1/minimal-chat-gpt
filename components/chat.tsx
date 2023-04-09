@@ -154,7 +154,7 @@ const InputMessage = ({ sendMessage }: any) => {
   const [input, setInput] = useState("");
 
   return (
-    <div className="clear-both mt-6 flex w-full">
+    <div className="clear-both mb-2 flex w-full md:mb-0 md:mt-6">
       <input
         type="text"
         aria-label="chat input"

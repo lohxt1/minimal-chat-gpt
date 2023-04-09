@@ -39,13 +39,13 @@ const App = ({ Component, pageProps }: AppProps) => {
         <Layout>
           {isMounted && (
             <>
-              {isMobile ? (
+              {/* {isMobile ? (
                 <div className="flex h-screen w-screen items-center justify-center">
                   NOPE, desktop only.
                 </div>
-              ) : (
-                <Component {...pageProps} />
-              )}
+              ) : ( */}
+              <Component {...pageProps} />
+              {/* )} */}
             </>
           )}
         </Layout>

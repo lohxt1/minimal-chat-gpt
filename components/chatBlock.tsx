@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import Annotator from "@/modules/annotator";
-import { useHistoryStore } from "stores/history";
 import { cn } from "@/utils/tailwind";
 
 type ChatGPTAgent = "user" | "system" | "assistant";
@@ -21,96 +19,14 @@ export const ChatBlock = ({
   sendMessage,
   index,
 }: ChatBlockProps) => {
-  const [showAnnotator, toggleAnnotator] = useState(false);
-  const [feedbackOutput, setFeedbackOutput] = useState(null);
-
   return (
     <div className="relative flex flex-col border-b border-gray-100 dark:border-gray-900">
-      {showAnnotator ? (
-        <>
-          {/* Output annotator module */}
-          <Annotator
-            input={content}
-            setOutput={(v) => {
-              setFeedbackOutput(v);
-            }}
-          />
-          {/* Annotation string */}
-          {feedbackOutput && feedbackOutput.length > 0 ? (
-            <>
-              <Feedback feedbackOutput={feedbackOutput} />
-              <button
-                className="mx-4 mb-4 mr-2 w-fit rounded-sm border border-slate-500 px-2 py-1 disabled:opacity-50"
-                onClick={() => {
-                  sendMessage(feedbackOutput, index);
-                  toggleAnnotator((_) => !_);
-                }}
-              >
-                Submit
-              </button>
-            </>
-          ) : null}
-        </>
-      ) : (
-        <ChatLine
-          role={role}
-          content={content}
-          sendMessage={sendMessage}
-          index={index}
-        />
-      )}
-      {role == "assistant" && (
-        <>
-          {showAnnotator ? (
-            <button
-              className="absolute top-0 right-0 mx-1 my-1 w-fit rounded-sm px-2 py-1 text-2xl disabled:opacity-50"
-              onClick={() => toggleAnnotator((_) => !_)}
-            >
-              ×
-            </button>
-          ) : (
-            <button
-              className="mx-4 ml-10 mb-4 mr-2 w-fit rounded-sm border border-slate-500 px-2 py-1 disabled:opacity-50"
-              onClick={() => toggleAnnotator((_) => !_)}
-            >
-              Add Hints
-            </button>
-          )}
-        </>
-      )}
-    </div>
-  );
-};
-
-const Feedback = (props) => {
-  const { feedbackOutput } = props;
-  const textareaRef = useRef<HTMLTextAreaElement>();
-  const [textareaHeight, setTextareaHeight] = useState(0);
-
-  useEffect(() => {
-    if (textareaRef?.current?.scrollHeight) {
-      setTextareaHeight(textareaRef.current.scrollHeight);
-    }
-  }, [feedbackOutput]);
-
-  return (
-    <div className="mt-2 flex h-fit w-full flex-col border-t border-gray-100 p-4 dark:border-gray-900">
-      <>
-        <div className="flex flex-row text-xs">
-          <label className="mr-1 text-slate-300 underline decoration-dashed dark:text-slate-500">
-            Feedback Prompt
-          </label>
-        </div>
-        <textarea
-          ref={textareaRef}
-          style={{
-            height: textareaHeight ? `${textareaHeight}px` : "auto",
-          }}
-          className="mt-4 h-auto w-full border border-gray-500 bg-transparent p-2"
-          // value={JSON.stringify(feedbackOutput, null, 4)}
-          value={feedbackOutput}
-        />
-      </>
+      <ChatLine
+        role={role}
+        content={content}
+        sendMessage={sendMessage}
+        index={index}
+      />
     </div>
   );
 };
@@ -161,7 +77,7 @@ const ChatLine = ({
           ) : (
             <p
               className={cn(
-                "leading-8",
+                "text-sm leading-6 md:text-base md:leading-8",
                 role == "assistant" ? "" : "text-gray-500",
               )}
             >
@@ -225,7 +141,10 @@ const InputEdit = (props) => {
           style={{
             height: textareaHeight ? `${textareaHeight}px` : "auto",
           }}
-          className="h-auto w-full bg-transparent leading-8 outline-none focus:outline-none"
+          className={cn(
+            "h-auto w-full bg-transparent outline-none focus:outline-none",
+            "text-sm leading-6 md:text-base md:leading-8",
+          )}
           value={input}
           onChange={(e) => {
             setInput(e.target.value);

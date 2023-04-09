@@ -7,6 +7,8 @@ interface HistoryState {
   setCurrentChatId: (val?) => void;
   history: any;
   messages: any;
+  showHistory: boolean;
+  toggleShowHistory: (val?) => void;
   sliceMessages: (val) => void;
   setHistory: (val) => void;
   deleteHistory: (val) => void;
@@ -17,6 +19,12 @@ export const useHistoryStore = create<HistoryState>()(
     (set) => ({
       currentChatId: null,
       messages: [],
+      showHistory: false,
+      toggleShowHistory: (val) => {
+        set((state) => ({
+          showHistory: Boolean(val) ? val : !state.showHistory,
+        }));
+      },
       setCurrentChatId: (val) => {
         set((state) => ({
           currentChatId: val || nanoid(),

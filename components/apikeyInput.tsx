@@ -49,7 +49,7 @@ const ApikeyInput = (props) => {
           <label className="mr-1 mb-4 flex flex-row text-gray-700">
             The API key is stored in your browser's localstorage.
             <a
-              href="https://lohxt.space"
+              href="https://github.com/lohxt1/minimal-chat-gpt"
               target="_blank"
               className={cn("ml-1 text-xs text-gray-500 underline")}
             >

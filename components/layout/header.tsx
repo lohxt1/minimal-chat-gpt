@@ -1,5 +1,6 @@
 import React from "react";
 import { useTheme } from "next-themes";
+import { useHistoryStore } from "stores/history";
 import { cn } from "utils/tailwind";
 import Apikey from "../shared/apikey";
 import GithubStar from "../shared/giithubStar";
@@ -31,7 +32,7 @@ const Header: React.FC = () => {
           "z-10",
         )}
       >
-        <pre className="italic">chatGPT-minimal</pre>
+        <pre className="md:text-md text-xs italic">chatGPT ~ minimal</pre>
         <div
           className={cn(
             "flex w-fit items-center justify-between align-middle",
@@ -40,6 +41,8 @@ const Header: React.FC = () => {
           )}
         >
           <div className={cn("flex items-center")}>
+            <History />
+            <NewChat />
             <Apikey />
             <GithubStar />
           </div>
@@ -99,3 +102,51 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+
+const NewChat = (props) => {
+  const { setCurrentChatId } = useHistoryStore();
+
+  const _handleNew = (e) => {
+    setCurrentChatId();
+  };
+
+  return (
+    <label
+      className="align-center flex cursor-pointer items-center px-2 text-3xl md:hidden"
+      onClick={_handleNew}
+    >
+      +
+    </label>
+  );
+};
+
+const History = (props) => {
+  const { toggleShowHistory } = useHistoryStore();
+
+  const _handleClick = (e) => {
+    toggleShowHistory();
+  };
+
+  return (
+    <label
+      className="align-center flex cursor-pointer items-center px-2 text-3xl md:hidden"
+      onClick={_handleClick}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="15"
+        height="15"
+        viewBox="0 0 15 15"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M1.875 1.875V5H5" />
+        <path d="M1.906 8.125A5.625 5.625 0 1 0 3.75 3.313L1.875 5" />
+        <path d="M7.5 4.375V7.5L10 8.75" />
+      </svg>
+    </label>
+  );
+};
