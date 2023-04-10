@@ -12,7 +12,7 @@ minimal ~ chat - gpt
     <img alt="MIT License" src="https://img.shields.io/github/license/trpc/trpc" />
   </a>
 <p align="center" style="font-weight:400;font-size:20px;">
-  Minimalistic customizable chat gpt interface.
+  Minimalistic customizable chat gpt interface. Faster than chatGPT.
 </p>
 </div>
 
